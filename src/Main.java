@@ -1,16 +1,19 @@
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
-        String s = """
-                The secret code is prepared: ****.
-                                
-                Turn 1. Answer:
-                1234
-                Grade: None.
-                                
-                Turn 2. Answer:
-                9876
-                Grade: 4 bulls.
-                Congrats! The secret code is 9876.""";
-        System.out.println(s);
+        // Create array of unique random numbers
+        Stack<Integer> nums = new Stack<>();
+        for (int i = 0; i <= 9; i++) {
+            nums.add(i);
+        }
+        Collections.shuffle(nums);
+
+        // Generate secret code
+        int[] secretCode = new int[4];
+        for (int i = 0; i < secretCode.length; i++) {
+            secretCode[i] = nums.pop();
+        }
+        System.out.println(Arrays.toString(secretCode));
     }
 }
