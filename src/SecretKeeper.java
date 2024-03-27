@@ -42,7 +42,6 @@ public class SecretKeeper {
         for (int i = 0; i < guess.length; i++) {
             guess[i] = guesserNumber.charAt(i) - 48;
         }
-        System.out.println(Arrays.toString(guess));
 
         // Compare
         int numCows = 0;
