@@ -1,24 +1,25 @@
 import java.util.*;
 
 public class SecretKeeper {
-    private final int[] secretNum;
+    private final int[] secret;
 
     public SecretKeeper() {
-        this.secretNum = generateNum();
+        this.secret = generateRandomSecret();
     }
-    public SecretKeeper(String secret) {
+    public SecretKeeper(String secretNumber) {
+        // Convert user String into an array
         int[] arr = new int[4];
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = secret.charAt(i) - 48;
+            arr[i] = secretNumber.charAt(i) - 48;
         }
-        this.secretNum = arr;
+        this.secret = arr;
     }
 
-    public int[] getSecretNum() {
-        return this.secretNum;
+    public int[] getSecret() {
+        return this.secret;
     }
 
-    private int[] generateNum() {
+    private int[] generateRandomSecret() {
         // Create array of unique random numbers
         Stack<Integer> nums = new Stack<>();
         for (int i = 0; i <= 9; i++) {
@@ -35,26 +36,26 @@ public class SecretKeeper {
         return secretCode;
     }
 
-    public int[] checkBullsAndCows(String userGuess) {
+    public int[] getBullsAndCows(String guesserNumber) {
         // Create array of user input
-        int[] guessNum = new int[4];
-        for (int i = 0; i < guessNum.length; i++) {
-            guessNum[i] = userGuess.charAt(i) - 48;
+        int[] guess = new int[4];
+        for (int i = 0; i < guess.length; i++) {
+            guess[i] = guesserNumber.charAt(i) - 48;
         }
-        System.out.println(Arrays.toString(guessNum));
+        System.out.println(Arrays.toString(guess));
 
         // Compare
         int numCows = 0;
         int numBulls = 0;
-        for (int i = 0; i < secretNum.length; i++) {
-            for (int j = 0; j < guessNum.length; j++) {
+        for (int i = 0; i < secret.length; i++) {
+            for (int j = 0; j < guess.length; j++) {
                 // Cow check
-                if (secretNum[i] == guessNum[j]) {
+                if (secret[i] == guess[j]) {
                     numCows++;
                 }
             }
             // Bull check
-            if (secretNum[i] == guessNum[i]) {
+            if (secret[i] == guess[i]) {
                 numCows--;
                 numBulls++;
             }
