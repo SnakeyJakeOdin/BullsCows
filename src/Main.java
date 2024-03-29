@@ -2,12 +2,16 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        int num = generateSecretNum(4);
-        System.out.println(num);
+        Scanner scanner = new Scanner(System.in);
+
+        long num = generateSecretNum(scanner.nextInt());
+        if (num != -1) {
+            System.out.printf("The random secret number is %d", num);
+        }
 
     }
 
-    public static int generateSecretNum(int len) {
+    public static long generateSecretNum(int len) {
         if (len > 10) {
             System.out.printf("Error: can't generate a secret number with a length of %d" +
                     " because there aren't enough unique digits.", len);
@@ -23,13 +27,11 @@ public class Main {
                 Collections.shuffle(stack);
             }
 
-            //TODO: Delete after testing
-            System.out.println(stack);
-
             // unique generation --> secret number
-            int secretNum = 0;
+            long secretNum = 0;
             for (int i = len - 1; i >= 0; i--) {
-                secretNum += stack.pop() * (int)Math.pow(10, i);
+                secretNum += stack.pop() * (long)Math.pow(10, i);  // caused stack overflow 💀
+                System.out.println(secretNum);
             }
             return secretNum;
         }
