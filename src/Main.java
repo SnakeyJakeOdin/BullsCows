@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         // Class setup
         Scanner scanner = new Scanner(System.in);
-        SecretKeeper secretKeeper = new SecretKeeper("9305");
+        Secret secretKeeper = new Secret();
         int[] bullsAndCows = secretKeeper.getBullsAndCows(scanner.nextLine());
 
         // Variables to compare
