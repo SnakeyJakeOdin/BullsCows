@@ -19,7 +19,7 @@ public class Main {
         }
         else {
             // random, unique number generation
-            Stack<Integer> stack = new Stack<Integer>();
+            Stack<Integer> stack = new Stack<>();
             for (int i = 9; i >= 0; i--) {
                 stack.push(i);
             }
@@ -31,7 +31,6 @@ public class Main {
             long secretNum = 0;
             for (int i = len - 1; i >= 0; i--) {
                 secretNum += stack.pop() * (long)Math.pow(10, i);  // caused stack overflow 💀
-                System.out.println(secretNum);
             }
             return secretNum;
         }
