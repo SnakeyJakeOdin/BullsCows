@@ -5,22 +5,25 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Please, enter the secret code's length:");
-        String secretNum = generateSecretNum(scanner.nextInt());
+        final String secretNum = generateSecretNum(scanner.nextInt());
+
         //TODO: Delete
         System.out.println(secretNum);
 
         System.out.println("Okay, let's start a game!");
-        int bulls = 0;
-        int cows = 0;
+        int bulls;
+        int cows;
         int turn = 1;
         String guessNum;
-        while (bulls < 4) {
+        do {
             System.out.printf("Turn %d:%n", turn);
             guessNum = scanner.next();
             bulls = findBulls(guessNum, secretNum);
+            cows = findCows(guessNum, secretNum);
 
-            System.out.printf("Grade: %d bull(s) and %d cow(s)%n", bulls, 0);
-        }
+            System.out.printf("Grade: %d bull(s) and %d cow(s)%n", bulls, cows);
+            turn++;
+        } while (bulls < secretNum.length());
 
     }
 
@@ -57,5 +60,17 @@ public class Main {
             }
         }
         return bulls;
+    }
+
+    public static int findCows(String guessNum, String secretNum) {
+        int cows = 0;
+        for (int i = 0; i < guessNum.length(); i++) {
+            for (int j = 0; j < guessNum.length(); j++) {
+                if (guessNum.charAt(j) == secretNum.charAt(i)) {
+                    cows++;
+                }
+            }
+        }
+        return cows - findBulls(guessNum, secretNum);
     }
 }
