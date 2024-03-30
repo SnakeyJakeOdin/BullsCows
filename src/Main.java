@@ -4,12 +4,11 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        // Generate secret code
         System.out.println("Please, enter the secret code's length:");
         final String secretNum = generateSecretNum(scanner.nextInt());
 
-        //TODO: Delete
-        System.out.println(secretNum);
-
+        // Game loop
         System.out.println("Okay, let's start a game!");
         int bulls;
         int cows;
@@ -21,10 +20,12 @@ public class Main {
             bulls = findBulls(guessNum, secretNum);
             cows = findCows(guessNum, secretNum);
 
-            System.out.printf("Grade: %d bull(s) and %d cow(s)%n", bulls, cows);
+            System.out.printf("Grade: %d bulls and %d cows%n", bulls, cows);
             turn++;
         } while (bulls < secretNum.length());
 
+        // End game
+        System.out.println("Congratulations! You guessed the secret code.");
     }
 
     public static String generateSecretNum(int len) {
