@@ -6,7 +6,10 @@ public class Main {
 
         // Generate secret code
         System.out.println("Please, enter the secret code's length:");
-        final String secretNum = generateSecretNum(scanner.nextInt());
+        int codeLen = scanner.nextInt();
+        System.out.println("Input the number of possible symbols in the code:");
+        int possibleSymbolsLen = scanner.nextInt();
+        final String secretNum = generateSecretNum(codeLen, possibleSymbolsLen);
 
         // Game loop
         System.out.println("Okay, let's start a game!");
@@ -28,28 +31,31 @@ public class Main {
         System.out.println("Congratulations! You guessed the secret code.");
     }
 
-    public static String generateSecretNum(int len) {
-        if (len > 10) {
+    public static String generateSecretNum(int len, int numSymbols) {
+        //TODO: fix this entire thing
+        if (len > 36) {
             System.out.printf("Error: can't generate a secret number with a length of %d" +
                     " because there aren't enough unique digits.", len);
             return null;
         }
         else {
             // random, unique number generation
-            Stack<Integer> stack = new Stack<>();
-            for (int i = 9; i >= 0; i--) {
-                stack.push(i);
+            char[] possibleVal = new char[]{'0','1','2','3','4','5','6','7','8','9',
+            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+            Stack<Character> secretCode = new Stack<>();
+            for (int i = 0; i < numSymbols; i++) {
+                secretCode.push(possibleVal[i]);
             }
-            while (stack.peek() == 0) {
-                Collections.shuffle(stack);
+            while (secretCode.peek() == 0) {
+                Collections.shuffle(secretCode);
             }
 
-            // unique generation --> secret number
-            long secretNum = 0;
-            for (int i = len - 1; i >= 0; i--) {
-                secretNum += stack.pop() * (long)Math.pow(10, i);  // caused stack overflow 💀
+            System.out.print("The secret is prepared: ");
+            for (int i = 0; i < len; i++) {
+                System.out.print("*");
             }
-            return String.valueOf(secretNum);
+            System.out.printf(" (0-9, a-%c).%n", possibleVal[numSymbols]);
+            return String.valueOf(possibleVal);
         }
     }
 
