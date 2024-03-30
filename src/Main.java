@@ -4,18 +4,31 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        long num = generateSecretNum(scanner.nextInt());
-        if (num != -1) {
-            System.out.printf("The random secret number is %d", num);
+        System.out.println("Please, enter the secret code's length:");
+        String secretNum = generateSecretNum(scanner.nextInt());
+        //TODO: Delete
+        System.out.println(secretNum);
+
+        System.out.println("Okay, let's start a game!");
+        int bulls = 0;
+        int cows = 0;
+        int turn = 1;
+        String guessNum;
+        while (bulls < 4) {
+            System.out.printf("Turn %d:%n", turn);
+            guessNum = scanner.next();
+            bulls = findBulls(guessNum, secretNum);
+
+            System.out.printf("Grade: %d bull(s) and %d cow(s)%n", bulls, 0);
         }
 
     }
 
-    public static long generateSecretNum(int len) {
+    public static String generateSecretNum(int len) {
         if (len > 10) {
             System.out.printf("Error: can't generate a secret number with a length of %d" +
                     " because there aren't enough unique digits.", len);
-            return -1;
+            return null;
         }
         else {
             // random, unique number generation
@@ -32,7 +45,17 @@ public class Main {
             for (int i = len - 1; i >= 0; i--) {
                 secretNum += stack.pop() * (long)Math.pow(10, i);  // caused stack overflow 💀
             }
-            return secretNum;
+            return String.valueOf(secretNum);
         }
+    }
+
+    public static int findBulls(String guessNum, String secretNum) {
+        int bulls = 0;
+        for (int i = 0; i < guessNum.length(); i++) {
+            if (guessNum.charAt(i) == secretNum.charAt(i)) {
+                bulls++;
+            }
+        }
+        return bulls;
     }
 }
