@@ -6,10 +6,13 @@ public class Game {
     private final Scanner scanner = new Scanner(System.in);
     private int bulls;
     private int cows;
-    private int turn = 1;
+    private int turn;
     private String secret;
 
     public Game() {
+        this.bulls = 0;
+        this.cows = 0;
+        this.turn = 1;
     }
 
     public int getBulls() {
@@ -20,6 +23,9 @@ public class Game {
     }
     public int getTurn() {
         return this.turn;
+    }
+    public String getSecret() {
+        return this.secret;
     }
     public void setBulls(int bulls) {
         this.bulls = bulls;
@@ -36,7 +42,25 @@ public class Game {
         int desiredNumberOfSymbols = promptDesiredNumberOfSymbols();
         this.secret = generateSecretNum(secretLength, desiredNumberOfSymbols);
     }
+    protected void showSecret() {
+        System.out.println("Secret code: " + secret);
+    }
+    protected void play() {
+        System.out.println("Okay, let's start a game!");
 
+        String guessNum;
+        while (bulls < secret.length()) {
+            System.out.printf("Turn %d:%n", turn);
+
+            guessNum = scanner.next();
+            findBulls(guessNum);
+            findCows(guessNum);
+
+            System.out.printf("Grade: %d bulls and %d cows%n", bulls, cows);
+            incrementTurn();
+        }
+        System.out.println("Congratulations! You guessed the secret code.");
+    }
     private String generateSecretNum(int secretLength, int desiredNumberOfSymbols) {
         if (secretLength > 36) {
             System.out.printf("Error: can't generate a secret number with a length of %d" +
@@ -70,7 +94,6 @@ public class Game {
         }
 
     }
-
     private int promptSecretLength() {
         System.out.println("Please, enter the secret code's length:");
         return scanner.nextInt();
@@ -78,5 +101,24 @@ public class Game {
     private int promptDesiredNumberOfSymbols() {
         System.out.println("Input the number of possible symbols in the code:");
         return scanner.nextInt();
+    }
+    private void findBulls(String guessNum) {
+        bulls = 0;
+        for (int i = 0; i < guessNum.length(); i++) {
+            if (guessNum.charAt(i) == secret.charAt(i)) {
+                bulls++;
+            }
+        }
+    }
+    private void findCows(String guessNum) {
+        cows = 0;
+        for (int i = 0; i < guessNum.length(); i++) {
+            for (int j = 0; j < guessNum.length(); j++) {
+                if (guessNum.charAt(j) == secret.charAt(i)) {
+                    cows++;
+                }
+            }
+        }
+        cows -= bulls;
     }
 }
