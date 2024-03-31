@@ -32,7 +32,6 @@ public class Main {
     }
 
     public static String generateSecretNum(int len, int numSymbols) {
-        //TODO: fix this entire thing
         if (len > 36) {
             System.out.printf("Error: can't generate a secret number with a length of %d" +
                     " because there aren't enough unique digits.", len);
@@ -42,20 +41,26 @@ public class Main {
             // random, unique number generation
             char[] possibleVal = new char[]{'0','1','2','3','4','5','6','7','8','9',
             'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-            Stack<Character> secretCode = new Stack<>();
-            for (int i = 0; i < numSymbols; i++) {
-                secretCode.push(possibleVal[i]);
-            }
-            while (secretCode.peek() == 0) {
-                Collections.shuffle(secretCode);
-            }
+            ArrayList<Character> secretCode = new ArrayList<>();
 
+            // fill ArrayList with possible values
+            for (int i = 0; i < numSymbols; i++) {
+                secretCode.add(possibleVal[i]);
+            }
+            Collections.shuffle(secretCode);
+
+            // create a string from ArrayList
+            String secret = "";
+            for (int i = 0; i < len; i++) secret += secretCode.get(i);
+
+            // print to console
             System.out.print("The secret is prepared: ");
             for (int i = 0; i < len; i++) {
                 System.out.print("*");
             }
             System.out.printf(" (0-9, a-%c).%n", possibleVal[numSymbols]);
-            return String.valueOf(possibleVal);
+
+            return secret;
         }
     }
 
