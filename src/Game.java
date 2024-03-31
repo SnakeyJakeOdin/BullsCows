@@ -14,29 +14,9 @@ public class Game {
         this.cows = 0;
         this.turn = 1;
     }
-
-    public int getBulls() {
-        return this.bulls;
-    }
-    public int getCows() {
-        return this.cows;
-    }
-    public int getTurn() {
-        return this.turn;
-    }
-    public String getSecret() {
-        return this.secret;
-    }
-    public void setBulls(int bulls) {
-        this.bulls = bulls;
-    }
-    public void setCows(int cows) {
-        this.cows = cows;
-    }
     public void incrementTurn() {
         turn++;
     }
-
     protected void generateCode() {
         int secretLength = promptSecretLength();
         int desiredNumberOfSymbols = promptDesiredNumberOfSymbols();
