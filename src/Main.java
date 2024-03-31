@@ -4,6 +4,11 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        // TODO: Testing
+        Game game = new Game();
+        game.generateCode();
+
+
         // Generate secret code
         System.out.println("Please, enter the secret code's length:");
         int codeLen = scanner.nextInt();
